@@ -6,6 +6,7 @@ import Start from "./Start";
 import Result from "./Result";
 import Header from "./Header";
 import Ranking from "./Ranking";
+import firebase from "../firebase";
 
 const Main = () => {
   const [gameStarted, setGameStarted] = useState(false);
@@ -71,10 +72,22 @@ const Main = () => {
     setQuestionNum((prev) => prev + 1);
   };
 
-  const goNextQuestion = () => {
-    setShowNextQuestionButton(false);
+  // const goNextQuestion = () => {
+  //   setShowNextQuestionButton(false);
+  //   handleQuestionNum();
+  //   setUserAnswerStatus(null);
+  // };
+
+  const finishGame = () => {
+    // send score to db
+    const dataRef = firebase.database().ref("data");
+    dataRef.push({
+      name: playersName,
+      score,
+    });
+
+    // finish game
     handleQuestionNum();
-    setUserAnswerStatus(null);
   };
   //style
   // const useStyles = makeStyles({
@@ -103,6 +116,7 @@ const Main = () => {
         handleAfterAnswering={handleAfterAnswering}
         showNextQuestionButton={showNextQuestionButton}
         handleQuestionNum={handleQuestionNum}
+        finishGame={finishGame}
       />
     );
   }

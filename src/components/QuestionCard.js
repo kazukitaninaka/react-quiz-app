@@ -6,6 +6,7 @@ const QuestionCard = ({
   handleAfterAnswering,
   handleQuestionNum,
   questionNum,
+  finishGame,
 }) => {
   const [userAnswer, setUserAnswer] = useState(null);
   const [userAnswerStatus, setUserAnswerStatus] = useState(null);
@@ -61,7 +62,6 @@ const QuestionCard = ({
     <div>
       <p>Q{questionNum}/5</p>
       <h3>{questionData.question.replace(/&quot;/g, '"')}</h3>
-
       {potentialAnswers.map((answer, index) => {
         let buttonVariant = "outlined";
         let buttonColor = "primary";
@@ -103,22 +103,13 @@ const QuestionCard = ({
         );
       })}
       {correctStatement}
-      {/* {showNextQuestionButton ? (
+      {showNextQuestionButton ? (
         <Button variant="contained" color="primary" onClick={goNextQuestion}>
           Next Question
         </Button>
       ) : showResultButton ? (
-        <Button variant="contained" color="primary" onClick={goNextQuestion}>
+        <Button variant="contained" color="primary" onClick={finishGame}>
           Result
-        </Button>
-      ) : null} */}
-      {userAnswerStatus ? (
-        <Button variant="contained" color="primary" onClick={goNextQuestion}>
-          {showNextQuestionButton
-            ? "Next Question"
-            : showResultButton
-            ? "Result"
-            : null}
         </Button>
       ) : null}
     </div>

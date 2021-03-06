@@ -3,13 +3,13 @@ import firebase from "../firebase";
 import { Link } from "@material-ui/core";
 
 const Result = ({ score, playersName }) => {
-  useEffect(() => {
-    const dataRef = firebase.database().ref("data");
-    dataRef.push({
-      name: playersName,
-      score,
-    });
-  }, []);
+  // useEffect(() => {
+  //   const dataRef = firebase.database().ref("data");
+  //   dataRef.push({
+  //     name: playersName,
+  //     score,
+  //   });
+  // }, []);
 
   return (
     <div>
