@@ -10,7 +10,7 @@ import firebase from "../firebase";
 
 const Main = () => {
   const [gameStarted, setGameStarted] = useState(false);
-  const [playerData, setPlayerData] = useState({});
+  const [playerData, setPlayerData] = useState({ id: null, name: "" });
   const [quiz, setQuiz] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
@@ -38,6 +38,7 @@ const Main = () => {
 
   const handlePlayerData = (e) => {
     setPlayerData({ id: Date.now(), name: e.target.value });
+    console.log(playerData);
   };
   const startGame = () => {
     setGameStarted(true);
