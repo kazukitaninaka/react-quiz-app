@@ -83,6 +83,7 @@ const Main = () => {
     const dataRef = firebase.database().ref("data");
     dataRef.push({
       name: playersName,
+      id: Date.now(),
       score,
     });
 
