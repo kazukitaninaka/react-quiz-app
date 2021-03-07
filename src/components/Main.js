@@ -10,7 +10,7 @@ import firebase from "../firebase";
 
 const Main = () => {
   const [gameStarted, setGameStarted] = useState(false);
-  const [playersName, setPlayersName] = useState(null);
+  const [playerData, setPlayerData] = useState({});
   const [quiz, setQuiz] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
@@ -36,8 +36,8 @@ const Main = () => {
   //     );
   // }, []);
 
-  const playersNameHandler = (e) => {
-    setPlayersName(e.target.value);
+  const handlePlayerData = (e) => {
+    setPlayerData({ id: Date.now(), name: e.target.value });
   };
   const startGame = () => {
     setGameStarted(true);
@@ -82,8 +82,8 @@ const Main = () => {
     // send score to db
     const dataRef = firebase.database().ref("data");
     dataRef.push({
-      name: playersName,
-      id: Date.now(),
+      name: playerData.name,
+      id: playerData.id,
       score,
     });
 
@@ -101,14 +101,14 @@ const Main = () => {
   let content;
   if (!gameStarted && !score) {
     content = (
-      <Start startGame={startGame} playersNameHandler={playersNameHandler} />
+      <Start startGame={startGame} handlePlayerData={handlePlayerData} />
     );
   } else if (error) {
     content = <div>{error.message}</div>;
   } else if (!isLoaded) {
     content = <div>Wait a sec</div>;
   } else if (questionNum - 1 >= quiz.length) {
-    content = <Result score={score} playersName={playersName} />;
+    content = <Result score={score} playerData={playerData} />;
   } else {
     content = (
       <QuestionCard

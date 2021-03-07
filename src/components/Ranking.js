@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from "react";
 import firebase from "../firebase";
+import compare from "../utils/compare";
 
 const Ranking = () => {
   const [data, setData] = useState([]);
-
-  const compare = (a, b) => {
-    if (a.score < b.score) {
-      return 1;
-    }
-    if (a.score > b.score) {
-      return -1;
-    }
-    return 0;
-  };
   useEffect(() => {
     const dataRef = firebase.database().ref("data");
     dataRef.on("value", (snapshot) => {
@@ -30,7 +21,7 @@ const Ranking = () => {
       <h2>Ranking Page</h2>
       {data.map((el, index) => (
         <div key={index}>
-          {el.name}: {el.score}
+          {index + 1}. {el.name}: {el.score}
         </div>
       ))}
     </div>
