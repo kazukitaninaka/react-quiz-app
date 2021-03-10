@@ -17,11 +17,7 @@ const Result = ({ score, playerData }) => {
     });
   }, []);
 
-  const finishedPlayerIndex = data.findIndex((el) => {
-    console.log(el.id);
-    console.log(playerData.id);
-    return el.id === playerData.id;
-  });
+  const finishedPlayerIndex = data.findIndex((el) => el.id === playerData.id);
   return (
     <div>
       <h2>Finished!</h2>
