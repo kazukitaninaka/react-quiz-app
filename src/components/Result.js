@@ -36,12 +36,18 @@ const Result = ({ score, playerData }) => {
           }
         })}
       </div>
-      <Link href="/" underline="always" style={{ marginRight: "16px" }}>
-        Go Back to Top
-      </Link>
-      <Link href="/ranking" underline="always">
-        Go to Ranking Page
-      </Link>
+      <Box mt={2}>
+        <Link
+          href="/"
+          underline="always"
+          style={{ marginRight: "16px", marginTop: "16px" }}
+        >
+          Go Back to Top
+        </Link>
+        <Link href="/ranking" underline="always">
+          Go to Ranking Page
+        </Link>
+      </Box>
     </div>
   );
 };
