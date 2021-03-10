@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import firebase from "../firebase";
-import { Link, Box } from "@material-ui/core";
+import {
+  Link,
+  Box,
+  Table,
+  TableBody,
+  TableHead,
+  TableCell,
+  TableRow,
+  Paper,
+  TableContainer,
+} from "@material-ui/core";
 import addRankingToData from "../utils/addRankingToData";
 
 const Result = ({ score, playerData }) => {
@@ -18,24 +28,54 @@ const Result = ({ score, playerData }) => {
     <div>
       <h2>Finished!</h2>
       <p>You scored {score} out of 5! Well done!</p>
-      <div>
-        <h2>Ranking</h2>
-        {data.map((el, index) => {
-          if (el.id === playerData.id) {
-            return (
-              <Box key={index} fontWeight="fontWeightBold">
-                {el.ranking}. {el.name}: {el.score} (You)
-              </Box>
-            );
-          } else {
-            return (
-              <div key={index}>
-                {el.ranking}. {el.name}: {el.score}
-              </div>
-            );
-          }
-        })}
-      </div>
+      <h2>Ranking</h2>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell
+                align="left"
+                style={{ maxWidth: "15%", fontWeight: "bold" }}
+              >
+                Rank
+              </TableCell>
+              <TableCell align="left" style={{ fontWeight: "bold" }}>
+                Name
+              </TableCell>
+              <TableCell align="left" style={{ fontWeight: "bold" }}>
+                Score
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((el) => {
+              if (el.id === playerData.id) {
+                return (
+                  <TableRow key={el.name}>
+                    <TableCell align="center" style={{ fontWeight: "bold" }}>
+                      {el.ranking}
+                    </TableCell>
+                    <TableCell align="center" style={{ fontWeight: "bold" }}>
+                      {el.name} (You)
+                    </TableCell>
+                    <TableCell align="center" style={{ fontWeight: "bold" }}>
+                      {el.score}
+                    </TableCell>
+                  </TableRow>
+                );
+              } else {
+                return (
+                  <TableRow key={el.name}>
+                    <TableCell align="center">{el.ranking}</TableCell>
+                    <TableCell align="center">{el.name}</TableCell>
+                    <TableCell align="center">{el.score}</TableCell>
+                  </TableRow>
+                );
+              }
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <Box mt={2}>
         <Link
           href="/"
