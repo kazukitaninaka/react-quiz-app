@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import firebase from "../firebase";
 import { Link, Box } from "@material-ui/core";
-import compare from "../utils/compare";
+import addRankingToData from "../utils/addRankingToData";
 
 const Result = ({ score, playerData }) => {
   const [data, setData] = useState([]);
@@ -9,11 +9,8 @@ const Result = ({ score, playerData }) => {
     const dataRef = firebase.database().ref("data");
     dataRef.on("value", (snapshot) => {
       const rawData = snapshot.val();
-      let data = [];
-      for (let id in rawData) {
-        data.push(rawData[id]);
-      }
-      setData(data.sort(compare));
+      const data = addRankingToData(rawData);
+      setData(data);
     });
   }, []);
 
@@ -28,13 +25,13 @@ const Result = ({ score, playerData }) => {
           if (finishedPlayerIndex === index) {
             return (
               <Box key={index} fontWeight="fontWeightBold">
-                {index + 1}. {el.name}: {el.score} (You)
+                {el.ranking}. {el.name}: {el.score} (You)
               </Box>
             );
           } else {
             return (
               <div key={index}>
-                {index + 1}. {el.name}: {el.score}
+                {el.ranking}. {el.name}: {el.score}
               </div>
             );
           }
