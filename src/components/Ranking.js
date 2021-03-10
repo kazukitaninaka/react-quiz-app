@@ -12,18 +12,36 @@ const Ranking = () => {
       for (let id in rawData) {
         data.push(rawData[id]);
       }
-      setData(data.sort(compare));
+      // sort data
+      data.sort(compare);
+      // add ranking field to data
+      data.forEach((el) => {
+        el.ranking = null;
+      });
+
+      data.forEach((el, index) => {
+        if (index === 0) {
+          data[index].ranking = index + 1;
+        } else if (el.score === data[index - 1].score) {
+          data[index].ranking = data[index - 1].ranking;
+          console.log(data);
+        } else {
+          data[index].ranking = data[index - 1].ranking + 1;
+        }
+      });
+      setData(data);
     });
   }, []);
-
   return (
     <div>
       <h2>Ranking Page</h2>
-      {data.map((el, index) => (
-        <div key={index}>
-          {index + 1}. {el.name}: {el.score}
-        </div>
-      ))}
+      {data.map((el, index) => {
+        return (
+          <div key={index}>
+            {el.ranking}. {el.name}: {el.score}
+          </div>
+        );
+      })}
     </div>
   );
 };
