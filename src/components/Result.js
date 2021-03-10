@@ -14,7 +14,6 @@ const Result = ({ score, playerData }) => {
     });
   }, []);
 
-  const finishedPlayerIndex = data.findIndex((el) => el.id === playerData.id);
   return (
     <div>
       <h2>Finished!</h2>
@@ -22,7 +21,7 @@ const Result = ({ score, playerData }) => {
       <div>
         <h2>Ranking</h2>
         {data.map((el, index) => {
-          if (finishedPlayerIndex === index) {
+          if (el.id === playerData.id) {
             return (
               <Box key={index} fontWeight="fontWeightBold">
                 {el.ranking}. {el.name}: {el.score} (You)
