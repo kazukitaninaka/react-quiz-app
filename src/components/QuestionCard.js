@@ -56,7 +56,14 @@ const QuestionCard = ({
   return (
     <div>
       <p>Q{questionNum}/5</p>
-      <h3>{questionData.question.replace(/&quot;/g, '"')}</h3>
+      <h3>
+        {questionData.question
+          .replace(/&amp;/g, "&")
+          .replace(/&lt;/g, "<")
+          .replace(/&gt;/g, ">")
+          .replace(/&quot;/g, '"')
+          .replace(/&#039;/g, "'")}
+      </h3>
       {questionData.answers.map((answer, index) => {
         let buttonVariant = "outlined";
         let buttonColor = "primary";
@@ -96,7 +103,13 @@ const QuestionCard = ({
               value={answer}
               onClick={checkAnswer}
             >
-              {answer.replace(/&quot;/g, '"')} {emoji}
+              {answer
+                .replace(/&amp;/g, "&")
+                .replace(/&lt;/g, "<")
+                .replace(/&gt;/g, ">")
+                .replace(/&quot;/g, '"')
+                .replace(/&#039;/g, "'")}{" "}
+              {emoji}
             </Button>
           </Box>
         );
