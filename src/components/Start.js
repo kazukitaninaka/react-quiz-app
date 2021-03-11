@@ -10,7 +10,7 @@ const Start = ({ startGame, handlePlayerData }) => {
         <TextField
           id="standard-basic"
           label="Your name"
-          autocomplete="off"
+          autoComplete="off"
           onChange={handlePlayerData}
         />
         <Box display="block" mt={2}>

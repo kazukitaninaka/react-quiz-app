@@ -80,6 +80,10 @@ const QuestionCard = ({
               emoji = "🙆‍";
             }
             break;
+          default:
+            buttonVariant = "outlined";
+            buttonColor = "primary";
+            emoji = null;
         }
         return (
           <Box my={1} key={index}>
