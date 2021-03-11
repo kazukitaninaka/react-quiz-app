@@ -7,6 +7,7 @@ import Result from "./Result";
 import Header from "./Header";
 import Ranking from "./Ranking";
 import firebase from "../firebase";
+import shuffleArray from "../utils/shuffle";
 
 const Main = () => {
   const [gameStarted, setGameStarted] = useState(false);
@@ -30,7 +31,14 @@ const Main = () => {
       .then((res) => res.json())
       .then(
         (quizData) => {
-          setQuiz(quizData.results);
+          const data = quizData.results.map((quiz) => ({
+            ...quiz,
+            answers: shuffleArray([
+              ...quiz.incorrect_answers,
+              quiz.correct_answer,
+            ]),
+          }));
+          setQuiz(data);
           setIsLoaded(true);
         },
         (error) => {

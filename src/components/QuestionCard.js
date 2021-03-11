@@ -14,11 +14,6 @@ const QuestionCard = ({
   const [showNextQuestionButton, setShowNextQuestionButton] = useState(false);
   const [showResultButton, setShowResultButton] = useState(false);
 
-  const potentialAnswers = [
-    ...questionData.incorrect_answers,
-    questionData.correct_answer,
-  ];
-
   const checkAnswer = (e) => {
     if (questionNum === 5) {
       setShowResultButton(true);
@@ -62,7 +57,7 @@ const QuestionCard = ({
     <div>
       <p>Q{questionNum}/5</p>
       <h3>{questionData.question.replace(/&quot;/g, '"')}</h3>
-      {potentialAnswers.map((answer, index) => {
+      {questionData.answers.map((answer, index) => {
         let buttonVariant = "outlined";
         let buttonColor = "primary";
         let emoji = null;
