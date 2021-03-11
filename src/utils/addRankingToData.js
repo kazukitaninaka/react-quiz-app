@@ -7,10 +7,6 @@ const addRankingToData = (rawData) => {
   }
   // sort data
   data.sort(compare);
-  // add ranking field to data
-  data.forEach((el) => {
-    el.ranking = null;
-  });
 
   data.forEach((el, index) => {
     if (index === 0) {

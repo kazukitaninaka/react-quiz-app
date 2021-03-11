@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, makeStyles, Button } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import QuestionCard from "./QuestionCard";
 import Start from "./Start";
@@ -16,25 +16,7 @@ const Main = () => {
   const [error, setError] = useState(null);
   const [questionNum, setQuestionNum] = useState(0);
   const [showNextQuestionButton, setShowNextQuestionButton] = useState(false);
-  const [userAnswerStatus, setUserAnswerStatus] = useState(null);
   const [score, setScore] = useState(0);
-
-  // useEffect(() => {
-  //   fetch(
-  //     "https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple"
-  //   )
-  //     .then((res) => res.json())
-  //     .then(
-  //       (quizData) => {
-  //         setQuiz(quizData.results);
-  //         setIsLoaded(true);
-  //       },
-  //       (error) => {
-  //         setIsLoaded(true);
-  //         setError(error);
-  //       }
-  //     );
-  // }, []);
 
   const handlePlayerData = (e) => {
     setPlayerData({ id: Date.now(), name: e.target.value });
@@ -60,10 +42,6 @@ const Main = () => {
   };
   const handleAfterAnswering = (correct) => {
     setShowNextQuestionButton(true);
-    // const userAnswer = e.currentTarget.value;
-
-    // const correct = quiz[questionNum - 1].correct_answer === userAnswer;
-
     if (correct) {
       setScore((prev) => prev + 1);
     }
@@ -72,12 +50,6 @@ const Main = () => {
   const handleQuestionNum = () => {
     setQuestionNum((prev) => prev + 1);
   };
-
-  // const goNextQuestion = () => {
-  //   setShowNextQuestionButton(false);
-  //   handleQuestionNum();
-  //   setUserAnswerStatus(null);
-  // };
 
   const finishGame = () => {
     // send score to db
@@ -91,13 +63,6 @@ const Main = () => {
     // finish game
     handleQuestionNum();
   };
-  //style
-  // const useStyles = makeStyles({
-  //   root: {
-  //     margin: "0 auto",
-  //   },
-  // });
-  // const classes = useStyles();
 
   let content;
   if (!gameStarted && !score) {
