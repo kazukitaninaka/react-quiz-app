@@ -75,7 +75,11 @@ const Main = () => {
   let content;
   if (!gameStarted && !score) {
     content = (
-      <Start startGame={startGame} handlePlayerData={handlePlayerData} />
+      <Start
+        startGame={startGame}
+        handlePlayerData={handlePlayerData}
+        playersName={playerData.name}
+      />
     );
   } else if (error) {
     content = <div>{error.message}</div>;
