@@ -5,6 +5,7 @@ import QuestionCard from "./QuestionCard";
 import Start from "./Start";
 import Result from "./Result";
 import Header from "./Header";
+import Footer from "./Footer";
 import Ranking from "./Ranking";
 import firebase from "../firebase";
 import shuffleArray from "../utils/shuffle";
@@ -101,19 +102,26 @@ const Main = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Header />
-      <Container maxWidth="sm">
-        <Switch>
-          <Route exact path="/">
-            {content}
-          </Route>
-          <Route path="/ranking">
-            <Ranking />
-          </Route>
-        </Switch>
-      </Container>
-    </BrowserRouter>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
+      <div style={{ flex: "1" }}>
+        <Header />
+        <Container maxWidth="sm">
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/">
+                {content}
+              </Route>
+              <Route path="/ranking">
+                <Ranking />
+              </Route>
+            </Switch>
+          </BrowserRouter>
+        </Container>
+      </div>
+      <Footer />
+    </div>
   );
 };
 
