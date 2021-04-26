@@ -56,14 +56,7 @@ const QuestionCard = ({
   return (
     <div>
       <p>Q{questionNum}/5</p>
-      <h3>
-        {questionData.question
-          .replace(/&amp;/g, "&")
-          .replace(/&lt;/g, "<")
-          .replace(/&gt;/g, ">")
-          .replace(/&quot;/g, '"')
-          .replace(/&#039;/g, "'")}
-      </h3>
+      <h3>{decodeURIComponent(questionData.question)}</h3>
       {questionData.answers.map((answer, index) => {
         let buttonVariant = "outlined";
         let buttonColor = "primary";
@@ -98,18 +91,11 @@ const QuestionCard = ({
               className={userAnswerStatus ? buttonStyle.root : null}
               variant={buttonVariant}
               color={buttonColor}
-              disableelevation
               fullWidth
               value={answer}
               onClick={checkAnswer}
             >
-              {answer
-                .replace(/&amp;/g, "&")
-                .replace(/&lt;/g, "<")
-                .replace(/&gt;/g, ">")
-                .replace(/&quot;/g, '"')
-                .replace(/&#039;/g, "'")}{" "}
-              {emoji}
+              {decodeURIComponent(answer)} {emoji}
             </Button>
           </Box>
         );

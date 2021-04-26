@@ -22,12 +22,11 @@ const Main = () => {
 
   const handlePlayerData = (e) => {
     setPlayerData({ id: Date.now(), name: e.target.value });
-    console.log(playerData);
   };
   const startGame = () => {
     setGameStarted(true);
     fetch(
-      "https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple"
+      "https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple&encode=url3986"
     )
       .then((res) => res.json())
       .then(
@@ -39,6 +38,7 @@ const Main = () => {
               quiz.correct_answer,
             ]),
           }));
+          console.log(data);
           setQuiz(data);
           setIsLoaded(true);
         },
