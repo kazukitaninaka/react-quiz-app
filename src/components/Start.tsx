@@ -1,8 +1,14 @@
-import React from "react";
+import { Dispatch, SetStateAction } from "react";
 import { TextField, Button, Box } from "@material-ui/core";
-// import { makeStyles } from "@material-ui/core/styles";
+import { PlayerData } from "../types";
 
-const Start = ({ startGame, handlePlayerData, playersName }) => {
+type Props = {
+  startGame: () => void;
+  setPlayerData: Dispatch<SetStateAction<PlayerData>>;
+  playersName: string;
+};
+
+const Start = ({ startGame, setPlayerData, playersName }: Props) => {
   return (
     <div>
       <h2>Easy Quiz Game!</h2>
@@ -11,7 +17,9 @@ const Start = ({ startGame, handlePlayerData, playersName }) => {
           id="standard-basic"
           label="Your name"
           autoComplete="off"
-          onChange={handlePlayerData}
+          onChange={(e) =>
+            setPlayerData({ id: Date.now(), name: e.target.value })
+          }
           value={playersName}
         />
         <Box display="block" mt={2}>
@@ -19,7 +27,7 @@ const Start = ({ startGame, handlePlayerData, playersName }) => {
             color="primary"
             variant="contained"
             onClick={startGame}
-            disabled={!playersName}
+            disabled={playersName === ""}
           >
             Start
           </Button>
