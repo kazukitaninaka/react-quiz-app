@@ -1,20 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import { makeStyles, Box, Button } from "@material-ui/core";
+import { QuizInfo, UserAnswerStatus } from "../types";
+
+type Props = {
+  questionData: QuizInfo;
+  setQuestionNum: Dispatch<SetStateAction<number>>;
+  handleAfterAnswering: (correct: boolean) => void;
+  questionNum: number;
+  finishGame: () => void;
+};
 
 const QuestionCard = ({
   questionData,
   handleAfterAnswering,
-  handleQuestionNum,
+  setQuestionNum,
   questionNum,
   finishGame,
-}) => {
-  const [userAnswer, setUserAnswer] = useState(null);
-  const [userAnswerStatus, setUserAnswerStatus] = useState(null);
+}: Props) => {
+  const [userAnswer, setUserAnswer] = useState<string | null>(null);
+  const [userAnswerStatus, setUserAnswerStatus] =
+    useState<UserAnswerStatus>("notAnsweredYet");
   // could be either "correct", "incorrect", or null
   const [showNextQuestionButton, setShowNextQuestionButton] = useState(false);
   const [showResultButton, setShowResultButton] = useState(false);
 
-  const checkAnswer = (e) => {
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (questionNum === 5) {
       setShowResultButton(true);
     } else {
@@ -38,10 +48,10 @@ const QuestionCard = ({
     correctStatement = <h3>😭Incorrect...</h3>;
 
   const goNextQuestion = () => {
-    setUserAnswerStatus(null);
+    setUserAnswerStatus("notAnsweredYet");
     setShowNextQuestionButton(false);
     setShowResultButton(false);
-    handleQuestionNum();
+    setQuestionNum((prev) => prev + 1);
   };
 
   //style
@@ -58,8 +68,8 @@ const QuestionCard = ({
       <p>Q{questionNum}/5</p>
       <h3>{decodeURIComponent(questionData.question)}</h3>
       {questionData.answers.map((answer, index) => {
-        let buttonVariant = "outlined";
-        let buttonColor = "primary";
+        let buttonVariant: "outlined" | "contained" = "outlined";
+        let buttonColor: "primary" | "secondary" = "primary";
         let emoji = null;
         switch (userAnswerStatus) {
           case "correct":
@@ -88,12 +98,18 @@ const QuestionCard = ({
         return (
           <Box my={1} key={index}>
             <Button
-              className={userAnswerStatus ? buttonStyle.root : null}
+              className={
+                userAnswerStatus !== "notAnsweredYet"
+                  ? buttonStyle.root
+                  : undefined
+              }
               variant={buttonVariant}
               color={buttonColor}
               fullWidth
               value={answer}
-              onClick={checkAnswer}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                checkAnswer(e)
+              }
             >
               {decodeURIComponent(answer)} {emoji}
             </Button>

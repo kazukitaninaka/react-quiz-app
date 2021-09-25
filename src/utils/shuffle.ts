@@ -1,4 +1,4 @@
-const shuffleArray = (array) => {
+const shuffleArray = (array: string[]) => {
   let m = array.length,
     t,
     i;

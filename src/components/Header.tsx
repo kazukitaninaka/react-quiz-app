@@ -1,4 +1,3 @@
-import React from "react";
 import { AppBar, Toolbar, Typography, Link } from "@material-ui/core";
 
 const Header = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Container } from "@material-ui/core";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import QuestionCard from "./QuestionCard";
@@ -9,20 +9,20 @@ import Footer from "./Footer";
 import Ranking from "./Ranking";
 import firebase from "../firebase";
 import shuffleArray from "../utils/shuffle";
+import { PlayerData, QuizData, QuizInfo } from "../types";
 
 const Main = () => {
-  const [gameStarted, setGameStarted] = useState(false);
-  const [playerData, setPlayerData] = useState({ id: null, name: "" });
-  const [quiz, setQuiz] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [gameStarted, setGameStarted] = useState<boolean>(false);
+  const [playerData, setPlayerData] = useState<PlayerData>({
+    id: null,
+    name: "",
+  });
+  const [quiz, setQuiz] = useState<QuizInfo[] | null>(null);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState(null);
-  const [questionNum, setQuestionNum] = useState(0);
-  const [showNextQuestionButton, setShowNextQuestionButton] = useState(false);
-  const [score, setScore] = useState(0);
+  const [questionNum, setQuestionNum] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
 
-  const handlePlayerData = (e) => {
-    setPlayerData({ id: Date.now(), name: e.target.value });
-  };
   const startGame = () => {
     setGameStarted(true);
     fetch(
@@ -31,7 +31,7 @@ const Main = () => {
       .then((res) => res.json())
       .then(
         (quizData) => {
-          const data = quizData.results.map((quiz) => ({
+          const data = quizData.results.map((quiz: QuizData) => ({
             ...quiz,
             answers: shuffleArray([
               ...quiz.incorrect_answers,
@@ -49,16 +49,16 @@ const Main = () => {
       );
     setQuestionNum(1);
   };
-  const handleAfterAnswering = (correct) => {
-    setShowNextQuestionButton(true);
+  const handleAfterAnswering = (correct: boolean) => {
+    // setShowNextQuestionButton(true);
     if (correct) {
       setScore((prev) => prev + 1);
     }
   };
 
-  const handleQuestionNum = () => {
-    setQuestionNum((prev) => prev + 1);
-  };
+  // const handleQuestionNum = () => {
+  //   setQuestionNum((prev) => prev + 1);
+  // };
 
   const finishGame = () => {
     // send score to db
@@ -70,7 +70,7 @@ const Main = () => {
     });
 
     // finish game
-    handleQuestionNum();
+    setQuestionNum((prev) => prev + 1);
   };
 
   let content;
@@ -78,13 +78,13 @@ const Main = () => {
     content = (
       <Start
         startGame={startGame}
-        handlePlayerData={handlePlayerData}
+        setPlayerData={setPlayerData}
         playersName={playerData.name}
       />
     );
   } else if (error) {
-    content = <div>{error.message}</div>;
-  } else if (!isLoaded) {
+    content = <div>{error}</div>;
+  } else if (!isLoaded || !quiz) {
     content = <div>Wait a sec</div>;
   } else if (questionNum - 1 >= quiz.length) {
     content = <Result score={score} playerData={playerData} />;
@@ -94,8 +94,8 @@ const Main = () => {
         questionData={quiz[questionNum - 1]}
         questionNum={questionNum}
         handleAfterAnswering={handleAfterAnswering}
-        showNextQuestionButton={showNextQuestionButton}
-        handleQuestionNum={handleQuestionNum}
+        // showNextQuestionButton={showNextQuestionButton}
+        setQuestionNum={setQuestionNum}
         finishGame={finishGame}
       />
     );
