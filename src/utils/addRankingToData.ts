@@ -1,7 +1,8 @@
+import { RankingData } from "../types";
 import compare from "./compare";
 
-const addRankingToData = (rawData) => {
-  let data = [];
+const addRankingToData = (rawData: RankingData[]) => {
+  let data: RankingData[] = [];
   for (let id in rawData) {
     data.push(rawData[id]);
   }
