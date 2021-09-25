@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import firebase from "../firebase";
 import {
   Table,
@@ -10,9 +10,10 @@ import {
   TableContainer,
 } from "@material-ui/core";
 import addRankingToData from "../utils/addRankingToData";
+import { RankingData } from "../types";
 
 const Ranking = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<RankingData[]>([]);
   useEffect(() => {
     const dataRef = firebase.database().ref("data");
     dataRef.on("value", (snapshot) => {
@@ -43,12 +44,12 @@ const Ranking = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((el) => {
+            {data.map((person) => {
               return (
-                <TableRow key={el.name}>
-                  <TableCell align="center">{el.ranking}</TableCell>
-                  <TableCell align="center">{el.name}</TableCell>
-                  <TableCell align="center">{el.score}</TableCell>
+                <TableRow key={person.id}>
+                  <TableCell align="center">{person.ranking}</TableCell>
+                  <TableCell align="center">{person.name}</TableCell>
+                  <TableCell align="center">{person.score}</TableCell>
                 </TableRow>
               );
             })}

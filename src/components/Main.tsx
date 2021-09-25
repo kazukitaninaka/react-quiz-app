@@ -21,8 +21,6 @@ const Main = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState(null);
   const [questionNum, setQuestionNum] = useState<number>(0);
-  // const [showNextQuestionButton, setShowNextQuestionButton] =
-  //   useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
 
   const startGame = () => {

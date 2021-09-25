@@ -23,3 +23,10 @@ export type QuizInfo = {
 };
 
 export type UserAnswerStatus = "correct" | "incorrect" | "notAnsweredYet";
+
+export type RankingData = {
+  id: number;
+  name: string;
+  score: number;
+  ranking: number;
+};

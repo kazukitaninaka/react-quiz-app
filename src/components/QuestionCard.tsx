@@ -98,7 +98,11 @@ const QuestionCard = ({
         return (
           <Box my={1} key={index}>
             <Button
-              className={userAnswerStatus && buttonStyle.root}
+              className={
+                userAnswerStatus !== "notAnsweredYet"
+                  ? buttonStyle.root
+                  : undefined
+              }
               variant={buttonVariant}
               color={buttonColor}
               fullWidth
