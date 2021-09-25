@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import firebase from "../firebase";
 import {
   Link,
@@ -12,9 +12,15 @@ import {
   TableContainer,
 } from "@material-ui/core";
 import addRankingToData from "../utils/addRankingToData";
+import { PlayerData, RankingData } from "../types";
 
-const Result = ({ score, playerData }) => {
-  const [data, setData] = useState([]);
+type Props = {
+  score: number;
+  playerData: PlayerData;
+};
+
+const Result = ({ score, playerData }: Props) => {
+  const [data, setData] = useState<RankingData[]>([]);
   useEffect(() => {
     const dataRef = firebase.database().ref("data");
     dataRef.on("value", (snapshot) => {
