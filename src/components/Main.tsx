@@ -50,15 +50,10 @@ const Main = () => {
     setQuestionNum(1);
   };
   const handleAfterAnswering = (correct: boolean) => {
-    // setShowNextQuestionButton(true);
     if (correct) {
       setScore((prev) => prev + 1);
     }
   };
-
-  // const handleQuestionNum = () => {
-  //   setQuestionNum((prev) => prev + 1);
-  // };
 
   const finishGame = () => {
     // send score to db
@@ -94,7 +89,6 @@ const Main = () => {
         questionData={quiz[questionNum - 1]}
         questionNum={questionNum}
         handleAfterAnswering={handleAfterAnswering}
-        // showNextQuestionButton={showNextQuestionButton}
         setQuestionNum={setQuestionNum}
         finishGame={finishGame}
       />
