@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container } from "@material-ui/core";
+import { Container, Box, CircularProgress } from "@material-ui/core";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import QuestionCard from "./QuestionCard";
 import Start from "./Start";
@@ -50,15 +50,10 @@ const Main = () => {
     setQuestionNum(1);
   };
   const handleAfterAnswering = (correct: boolean) => {
-    // setShowNextQuestionButton(true);
     if (correct) {
       setScore((prev) => prev + 1);
     }
   };
-
-  // const handleQuestionNum = () => {
-  //   setQuestionNum((prev) => prev + 1);
-  // };
 
   const finishGame = () => {
     // send score to db
@@ -85,7 +80,11 @@ const Main = () => {
   } else if (error) {
     content = <div>{error}</div>;
   } else if (!isLoaded || !quiz) {
-    content = <div>Wait a sec</div>;
+    content = (
+      <Box textAlign="center">
+        <CircularProgress />
+      </Box>
+    );
   } else if (questionNum - 1 >= quiz.length) {
     content = <Result score={score} playerData={playerData} />;
   } else {
@@ -94,7 +93,6 @@ const Main = () => {
         questionData={quiz[questionNum - 1]}
         questionNum={questionNum}
         handleAfterAnswering={handleAfterAnswering}
-        // showNextQuestionButton={showNextQuestionButton}
         setQuestionNum={setQuestionNum}
         finishGame={finishGame}
       />
@@ -103,7 +101,11 @@ const Main = () => {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
     >
       <div style={{ flex: "1" }}>
         <Header />
