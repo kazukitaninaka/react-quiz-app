@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container } from "@material-ui/core";
+import { Container, Box, CircularProgress } from "@material-ui/core";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import QuestionCard from "./QuestionCard";
 import Start from "./Start";
@@ -80,7 +80,11 @@ const Main = () => {
   } else if (error) {
     content = <div>{error}</div>;
   } else if (!isLoaded || !quiz) {
-    content = <div>Wait a sec</div>;
+    content = (
+      <Box textAlign="center">
+        <CircularProgress />
+      </Box>
+    );
   } else if (questionNum - 1 >= quiz.length) {
     content = <Result score={score} playerData={playerData} />;
   } else {
@@ -97,7 +101,11 @@ const Main = () => {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
     >
       <div style={{ flex: "1" }}>
         <Header />
