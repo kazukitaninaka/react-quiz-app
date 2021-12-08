@@ -10,8 +10,8 @@ type Props = {
 
 const Start = ({ startGame, setPlayerData, playersName }: Props) => {
   // Enabling pressing enter to start game
-  const handleStartGame = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+  const handleStartGame = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (playersName !== "" && e.key === "Enter") {
       startGame();
     }
   };
@@ -26,6 +26,7 @@ const Start = ({ startGame, setPlayerData, playersName }: Props) => {
           onChange={(e) =>
             setPlayerData({ id: Date.now(), name: e.target.value })
           }
+          required
           value={playersName}
           onKeyPress={handleStartGame}
         />
