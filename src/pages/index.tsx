@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Container, Box, CircularProgress } from "@material-ui/core";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import QuestionCard from "./QuestionCard";
-import Start from "./Start";
-import Result from "./Result";
-import Header from "./Header";
-import Footer from "./Footer";
-import Ranking from "./Ranking";
+import QuestionCard from "../components/QuestionCard";
+import Start from "../components/./Start";
+import Result from "../components/./Result";
+import Header from "../components/./Header";
+import Footer from "../components/./Footer";
+import Ranking from "../components/./Ranking";
 import firebase from "../firebase";
 import shuffleArray from "../utils/shuffle";
 import { PlayerData, QuizData, QuizInfo } from "../types";
 
-const Main = () => {
+export default function index() {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [playerData, setPlayerData] = useState<PlayerData>({
     id: null,
@@ -98,33 +98,5 @@ const Main = () => {
       />
     );
   }
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-      }}
-    >
-      <div style={{ flex: "1" }}>
-        <Header />
-        <Container maxWidth="sm">
-          <BrowserRouter>
-            <Switch>
-              <Route exact path="/">
-                {content}
-              </Route>
-              <Route path="/ranking">
-                <Ranking />
-              </Route>
-            </Switch>
-          </BrowserRouter>
-        </Container>
-      </div>
-      <Footer />
-    </div>
-  );
-};
-
-export default Main;
+  return <>{content}</>;
+}
