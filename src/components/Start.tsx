@@ -30,7 +30,7 @@ const Start = ({ startGame, setPlayerData, playersName }: Props) => {
           value={playersName}
           onKeyPress={handleStartGame}
         />
-        <Box display="block" mt={2}>
+        <Box style={{ marginTop: "8px" }}>
           <Button
             color="primary"
             variant="contained"
